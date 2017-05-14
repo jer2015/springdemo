@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<!-- 设置 settings -->
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<!-- 是否对关联的对象使用懒加载 -->
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<!-- 是否在获取一个属性时, 把其所有属性都进行初始化. 包括关联的属性. -->
+		<setting name="aggressiveLazyLoading" value="false"/>
+		<!-- 置为二级缓存打开或者关闭, 默认为打开-->
+		<setting name="cacheEnabled" value="true"/>
+
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+
+</configuration>

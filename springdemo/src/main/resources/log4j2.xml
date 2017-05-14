@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="off" monitorInterval="1800">
+    <Properties>
+        <Property name="LOG_HOME">d://logs</Property>
+    </Properties>
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} [%line]- %msg%n"/>
+        </Console>
+
+        <!-- 存储到文件 -->
+        <!--<File name="app_debug" fileName="${log-path}/app/debug.log" append="false">-->
+            <!--<Filters>-->
+                <!--<ThresholdFilter level="info" onMatch="DENY" onMismatch="NEUTRAL"/>-->
+                <!--<ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="NEUTRAL"/>-->
+            <!--</Filters>-->
+            <!--<PatternLayout pattern="%d{yyyy.MM.dd HH:mm:ss} %-5level %logger{36} [%line]- %msg%n"/>-->
+        <!--</File>-->
+
+        <!--<RollingFile name="file_appender" fileName="${LOG_HOME}/app_log.log"-->
+                     <!--filePattern="${LOG_HOME}/app_log-%d{yyyy-MM-dd}.log">-->
+            <!--<PatternLayout pattern="%d{yyyy.MM.dd HH:mm:ss} %-5level %logger{36} [%line]- %msg%n"/>-->
+            <!--<SizeBasedTriggeringPolicy size="10MB"/>-->
+            <!--&lt;!&ndash;<TimeBasedTriggeringPolicy interval="24" modulate="false"/>&ndash;&gt;-->
+            <!--<Filters>-->
+                <!--&lt;!&ndash;<ThresholdFilter level="info" onMatch="DENY" onMismatch="NEUTRAL"/>&ndash;&gt;-->
+                <!--<ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="NEUTRAL"/>-->
+            <!--</Filters>-->
+        <!--</RollingFile>-->
+
+
+        <!-- 按级别按天存储到文件 -->
+        <!--<RollingFile name="debug_appender" fileName="${LOG_HOME}/debug/debug.log"-->
+                     <!--filePattern="${LOG_HOME}/debug/debug-%d{yyyy-MM-dd}.log">-->
+            <!--<PatternLayout pattern="%d{yyyy.MM.dd HH:mm:ss} %-5level %logger{36} [%line]- %msg%n"/>-->
+            <!--&lt;!&ndash;<SizeBasedTriggeringPolicy size="10MB"/>&ndash;&gt;-->
+            <!--<TimeBasedTriggeringPolicy interval="24" modulate="false"/>-->
+            <!--<Filters>-->
+                <!--<ThresholdFilter level="info" onMatch="DENY" onMismatch="NEUTRAL"/>-->
+                <!--<ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="NEUTRAL"/>-->
+            <!--</Filters>-->
+        <!--</RollingFile>-->
+
+        <!--<RollingFile name="info_appender" fileName="${LOG_HOME}/info/info.log"-->
+                     <!--filePattern="${LOG_HOME}/info/info-%d{yyyy-MM-dd}.log">-->
+            <!--<PatternLayout pattern="%d{yyyy.MM.dd HH:mm:ss} %-5level %logger{36} [%line]- %msg%n"/>-->
+            <!--&lt;!&ndash;<SizeBasedTriggeringPolicy size="10MB"/>&ndash;&gt;-->
+            <!--<TimeBasedTriggeringPolicy interval="24" modulate="false"/>-->
+            <!--<Filters>-->
+                <!--<ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL"/>-->
+                <!--<ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>-->
+            <!--</Filters>-->
+        <!--</RollingFile>-->
+
+        <!--<RollingFile name="warn_appender" fileName="${LOG_HOME}/warn/warn.log"-->
+                     <!--filePattern="${LOG_HOME}/warn/warn-%d{yyyy-MM-dd}.log">-->
+            <!--<PatternLayout pattern="%d{yyyy.MM.dd HH:mm:ss} %-5level %logger{36} [%line]- %msg%n"/>-->
+            <!--&lt;!&ndash;<SizeBasedTriggeringPolicy size="10MB"/>&ndash;&gt;-->
+            <!--<TimeBasedTriggeringPolicy interval="24" modulate="false"/>-->
+            <!--<Filters>-->
+                <!--<ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>-->
+                <!--<ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>-->
+            <!--</Filters>-->
+        <!--</RollingFile>-->
+
+        <!--<RollingFile name="error_appender" fileName="${LOG_HOME}/error/error.log"-->
+                     <!--filePattern="${LOG_HOME}/error/error-%d{yyyy-MM-dd}.log">-->
+            <!--<PatternLayout pattern="%d{yyyy.MM.dd HH:mm:ss} %-5level %logger{36} [%line]- %msg%n"/>-->
+            <!--&lt;!&ndash;<SizeBasedTriggeringPolicy size="10MB"/>&ndash;&gt;-->
+            <!--<TimeBasedTriggeringPolicy interval="24" modulate="false"/>-->
+            <!--<Filters>-->
+                <!--<ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>-->
+            <!--</Filters>-->
+        <!--</RollingFile>-->
+
+    </appenders>
+    <loggers>
+        <!-- additivity 指是否输出到顶层包定义的Appender中 -->
+        <logger name="org.springframework" level="info" additivity="false">
+            <!--<appender-ref ref="Console"/>-->
+        </logger>
+        <logger name="cn.tom" level="debug" additivity="false">
+            <appender-ref ref="Console"/>
+            <!--<appender-ref ref="file_appender"/>-->
+            <!--<appender-ref ref="debug_appender"/>-->
+            <!--<appender-ref ref="info_appender"/>-->
+            <!--<appender-ref ref="warn_appender"/>-->
+            <!--<appender-ref ref="error_appender"/>-->
+        </logger>
+        <root level="info">
+            <appender-ref ref="Console"/>
+        </root>
+    </loggers>
+</configuration>
