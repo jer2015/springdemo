@@ -1,8 +1,5 @@
 package cn.tom.web.util.mq.util;
 
-/**
- * Created by jerome on 2016/5/31.
- */
 public class RabbitQueue {
     private String queue_key;
     private String queue_name;
