@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Calendar;
@@ -34,6 +35,13 @@ public class UserController {
         user.setBirthday(calendar.getTime());
         Integer integer = userService.insertUser(user);
         LOGGER.info("postUser, result:{}", integer > 0);
+        return "success";
+    }
+
+    @RequestMapping(value = "/urlParam/{id}")
+    public String urlParam(@PathVariable String id, String u) {
+        System.out.println(u);
+        System.out.println(id);
         return "success";
     }
 }
