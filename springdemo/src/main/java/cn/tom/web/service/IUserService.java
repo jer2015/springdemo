@@ -7,5 +7,9 @@ import cn.tom.web.model.User;
  */
 public interface IUserService {
 
+    User selectUser(Integer id);
+
     Integer insertUser(User user);
+
+    Integer updateUser(User user);
 }

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tom.web.dao.ScheduleJobMapper">
+    <resultMap id="BaseResultMap" type="cn.tom.web.model.ScheduleJob">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="job_name" property="jobName" jdbcType="VARCHAR"/>
+        <result column="job_group" property="jobGroup" jdbcType="VARCHAR"/>
+        <result column="job_status" property="jobStatus" jdbcType="INTEGER"/>
+        <result column="job_cron" property="jobCron" jdbcType="VARCHAR"/>
+        <result column="job_desc" property="jobDesc" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, job_name, job_group, job_status, job_cron, job_desc
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from crontab
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from crontab
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.tom.web.model.ScheduleJob">
+        insert into crontab (id, job_name, job_group,
+        job_status, job_cron, job_desc
+        )
+        values (#{id,jdbcType=INTEGER}, #{jobName,jdbcType=VARCHAR}, #{jobGroup,jdbcType=VARCHAR},
+        #{jobStatus,jdbcType=INTEGER}, #{jobCron,jdbcType=VARCHAR}, #{jobDesc,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="cn.tom.web.model.ScheduleJob">
+        insert into crontab
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="jobName != null">
+                job_name,
+            </if>
+            <if test="jobGroup != null">
+                job_group,
+            </if>
+            <if test="jobStatus != null">
+                job_status,
+            </if>
+            <if test="jobCron != null">
+                job_cron,
+            </if>
+            <if test="jobDesc != null">
+                job_desc,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="jobName != null">
+                #{jobName,jdbcType=VARCHAR},
+            </if>
+            <if test="jobGroup != null">
+                #{jobGroup,jdbcType=VARCHAR},
+            </if>
+            <if test="jobStatus != null">
+                #{jobStatus,jdbcType=INTEGER},
+            </if>
+            <if test="jobCron != null">
+                #{jobCron,jdbcType=VARCHAR},
+            </if>
+            <if test="jobDesc != null">
+                #{jobDesc,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.tom.web.model.ScheduleJob">
+        update crontab
+        <set>
+            <if test="jobName != null">
+                job_name = #{jobName,jdbcType=VARCHAR},
+            </if>
+            <if test="jobGroup != null">
+                job_group = #{jobGroup,jdbcType=VARCHAR},
+            </if>
+            <if test="jobStatus != null">
+                job_status = #{jobStatus,jdbcType=INTEGER},
+            </if>
+            <if test="jobCron != null">
+                job_cron = #{jobCron,jdbcType=VARCHAR},
+            </if>
+            <if test="jobDesc != null">
+                job_desc = #{jobDesc,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.tom.web.model.ScheduleJob">
+        update crontab
+        set job_name = #{jobName,jdbcType=VARCHAR},
+        job_group = #{jobGroup,jdbcType=VARCHAR},
+        job_status = #{jobStatus,jdbcType=INTEGER},
+        job_cron = #{jobCron,jdbcType=VARCHAR},
+        job_desc = #{jobDesc,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectAllJob" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from crontab
+        WHERE job_status=1
+    </select>
+
+    <select id="selectByJobName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from crontab
+        WHERE job_status=1
+        AND job_name = #{jobName,jdbcType=VARCHAR}
+    </select>
+
+</mapper>
