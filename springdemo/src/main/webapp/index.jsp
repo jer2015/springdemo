@@ -10,33 +10,40 @@
     <script type="text/javascript" src="static/js/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
     <script>
         $(function () {
-//            var url = "/testAjax";
-//            $.ajax({
-//                url: url,
-//                async: false,
-//                data: {},
-//                type: "post",
-//                dataType: 'html',
-//                success: function (data) {
-//                    var fDate = jQuery.parseJSON(data);
-//                    var name = fDate.name;
-//                    names.push(name);
-//                }
-//            });
-//            alert(names);
+            var url = "http://127.0.0.1:8080/user/testAjax";
+            $('#sub').click(function () {
+                var obj = [];
+                var o1 = {};
+                var o2 = {};
+                o1.u1 = '1';
+                o1.u2 = 'a';
+                obj.push(o1);
+                o2.u1 = '2';
+                o2.u2 = 'b';
+                obj.push(o1);
+                var a = JSON.stringify(obj);
+                $.ajax({
+                    url: url,
+                    data: obj,
+                    type: "get",
+                    success: function (data) {
+                        alert(data)
+                    }
+                });
 
-            $('.form_datetime').datetimepicker({
-                language: 'zh-CN',
-                weekStart: 1,
-                todayBtn: 1,
-                autoclose: 1,
-                todayHighlight: 1,
-                startView: 1,
-                minView: 0,
-                maxView: 1,
-                forceParse: 0
-            });
-        })
+                $('.form_datetime').datetimepicker({
+                    language: 'zh-CN',
+                    weekStart: 1,
+                    todayBtn: 1,
+                    autoclose: 1,
+                    todayHighlight: 1,
+                    startView: 1,
+                    minView: 0,
+                    maxView: 1,
+                    forceParse: 0
+                });
+            })
+        });
 
     </script>
 
@@ -66,6 +73,8 @@
         </fieldset>
     </form>
 </div>
+
+<input type="button" value="sub" id="sub">
 
 </body>
 </html>

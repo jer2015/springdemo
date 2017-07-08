@@ -1,5 +1,6 @@
 package cn.tom.web.controller;
 
+import cn.tom.web.model.GetBean;
 import cn.tom.web.model.User;
 import cn.tom.web.service.IUserService;
 import org.slf4j.Logger;
@@ -8,7 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -43,5 +49,13 @@ public class UserController {
         System.out.println(u);
         System.out.println(id);
         return "success";
+    }
+
+    @RequestMapping(value = "/testAjax")
+    @ResponseBody
+    public void testAjax(HttpServletRequest request, HttpServletResponse response, GetBean getBean) throws IOException {
+        System.out.println("testAjax");
+        response.getWriter().write("testAjax");
+
     }
 }

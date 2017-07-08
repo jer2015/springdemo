@@ -10,11 +10,24 @@
     <bean id="rabbitTxManager" class="org.springframework.amqp.rabbit.transaction.RabbitTransactionManager"
           p:connectionFactory-ref="connectionFactory" />
 
-
     <bean id="jsonMessageConverter" class="org.springframework.amqp.support.converter.JsonMessageConverter" />
 
     <rabbit:template id="amqpTemplate" connection-factory="connectionFactory" message-converter="jsonMessageConverter" />
 
+    <rabbit:queue name="test_queue">
+        <rabbit:queue-arguments>
+            <entry key="x-dead-letter-exchange" value="dlx"/>
+            <entry key="x-message-ttl" value="10000" value-type="java.lang.Long"/>
+        </rabbit:queue-arguments>
+    </rabbit:queue>
+
+    <rabbit:queue name="test_queue_process"/>
+
+    <rabbit:direct-exchange name="dlx">
+        <rabbit:bindings>
+            <rabbit:binding key="test_queue" queue="test_queue_process"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
 
     <bean id="poolTaskScheduler" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
         <property name ="corePoolSize" value ="300" />

@@ -22,7 +22,7 @@ public class QuartzJobController {
     @Autowired
     private ScheduleJobMapper scheduleJobMapper;
 
-    @PostConstruct
+    //    @PostConstruct
     public void init() {
         //获取任务信息数据
         List<ScheduleJob> jobList = scheduleJobMapper.selectAllJob();
@@ -51,7 +51,7 @@ public class QuartzJobController {
                 //JobDataMap:JobDetail的一部分,包含job的状态
                 jobDetail.getJobDataMap().put("scheduleJob", job);
                 //表达式调度构建器
-                CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(job.getJobCron());
+                CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(job.getJobCron()).withMisfireHandlingInstructionDoNothing();
                 //按新的cronExpression表达式构建一个新的trigger
                 trigger = TriggerBuilder.newTrigger().withIdentity(job.getJobName(), job.getJobGroup()).withSchedule(scheduleBuilder).build();
                 scheduler.scheduleJob(jobDetail, trigger);

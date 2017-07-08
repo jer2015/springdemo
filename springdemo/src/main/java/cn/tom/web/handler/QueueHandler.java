@@ -17,3 +17,4 @@ public class QueueHandler implements BaseListener {
         LOGGER.info("mq 监听到数据:{}", new String(message.getBody()));
     }
 }
+
