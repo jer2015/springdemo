@@ -1,6 +1,6 @@
 package cn.tom.web.util.mq.core;
 
-import cn.tom.web.util.mq.util.LisenerStauts;
+import cn.tom.web.util.mq.util.ListenerStauts;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 
@@ -20,15 +20,15 @@ public class LisenerFactory {
 		}
 	}
 
-    public LisenerStauts keepListener(ConnectionFactory connectionFactory, SimpleMessageListenerContainer listenerContainer) {
+    public ListenerStauts keepListener(ConnectionFactory connectionFactory, SimpleMessageListenerContainer listenerContainer) {
         String key = getListenerMapKey(connectionFactory, listenerContainer);
         Object obj = lisenerMap.get(key);
 		if(obj != null){
-			return LisenerStauts.isExit;
-		}else{
+            return ListenerStauts.isExit;
+        }else{
 			lisenerMap.put(key, listenerContainer);
-			return LisenerStauts.success;
-		}
+            return ListenerStauts.success;
+        }
 	}
 
     public SimpleMessageListenerContainer getListener(String key) {
