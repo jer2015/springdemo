@@ -12,51 +12,53 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
-public class LisenerDeclare {
-	private Logger log = LoggerFactory.getLogger(LisenerDeclare.class);
-	public int DEFUALT_CONSUMERSIZE = 1;
+public class ListenerDeclare {
+	private Logger log = LoggerFactory.getLogger(ListenerDeclare.class);
+	public int DEFAULT_CONSUMER_SIZE = 1;
 	private String[] queueNames;
 	private int consumerSize;
 	private BaseListener baseListener;
 	private BaseChannelListener baseChannelListener;
 	private ConnectionFactory connectionFactory;
-	
-	public LisenerDeclare(ConnectionFactory connectionFactory,List<String> queueNameList) {
+
+	public ListenerDeclare(ConnectionFactory connectionFactory, List<String> queueNameList) {
 		this.connectionFactory = connectionFactory;
 		this.queueNames = new String[queueNameList.size()];
 		queueNameList.toArray(this.queueNames);
 	}
-	public LisenerDeclare(ConnectionFactory connectionFactory,List<String> queueNameList,int consumerSize) {
+
+	public ListenerDeclare(ConnectionFactory connectionFactory, List<String> queueNameList, int consumerSize) {
 		this.connectionFactory = connectionFactory;
 		this.queueNames = new String[queueNameList.size()];
 		queueNameList.toArray(this.queueNames);
 		this.consumerSize = consumerSize;
 	}
-	public LisenerDeclare(ConnectionFactory connectionFactory,List<String> queueNameList,BaseListener baseListener) {
+
+	public ListenerDeclare(ConnectionFactory connectionFactory, List<String> queueNameList, BaseListener baseListener) {
 		this.connectionFactory = connectionFactory;
 		this.queueNames = new String[queueNameList.size()];
 		queueNameList.toArray(this.queueNames);
-		this.consumerSize = DEFUALT_CONSUMERSIZE;
+		this.consumerSize = DEFAULT_CONSUMER_SIZE;
 		this.baseListener = baseListener;
 	}
-	
-	public LisenerDeclare(ConnectionFactory connectionFactory,List<String> queueNameList,BaseChannelListener baseChannelListener) {
+
+	public ListenerDeclare(ConnectionFactory connectionFactory, List<String> queueNameList, BaseChannelListener baseChannelListener) {
 		this.connectionFactory = connectionFactory;
 		this.queueNames = new String[queueNameList.size()];
 		queueNameList.toArray(this.queueNames);
-		this.consumerSize = DEFUALT_CONSUMERSIZE;
+		this.consumerSize = DEFAULT_CONSUMER_SIZE;
 		this.baseChannelListener = baseChannelListener;
 	}
-	
-	public LisenerDeclare(ConnectionFactory connectionFactory,List<String> queueNameList,int consumerSize,BaseListener baseListener) {
+
+	public ListenerDeclare(ConnectionFactory connectionFactory, List<String> queueNameList, int consumerSize, BaseListener baseListener) {
 		this.connectionFactory = connectionFactory;
 		this.queueNames = new String[queueNameList.size()];
 		queueNameList.toArray(this.queueNames);
 		this.consumerSize = consumerSize;
 		this.baseListener = baseListener;
 	}
-	
-	public LisenerDeclare(ConnectionFactory connectionFactory,List<String> queueNameList,int consumerSize,BaseChannelListener baseChannelListener) {
+
+	public ListenerDeclare(ConnectionFactory connectionFactory, List<String> queueNameList, int consumerSize, BaseChannelListener baseChannelListener) {
 		this.connectionFactory = connectionFactory;
 		this.queueNames = new String[queueNameList.size()];
 		queueNameList.toArray(this.queueNames);
@@ -100,7 +102,7 @@ public class LisenerDeclare {
 	}
 	
 	public boolean changeLisener(int consumerSize){
-		String key = getLisenerKey();
+		String key = getListenerKey();
 		SimpleMessageListenerContainer listenerContainer = LisenerFactory.instantiation().getLisener(key);
 		if(listenerContainer == null){
 			log.error("not find queue:{}",key);
@@ -113,7 +115,7 @@ public class LisenerDeclare {
 	}
 	
 	public boolean lisenerStart(){
-		String key = getLisenerKey();
+		String key = getListenerKey();
 		SimpleMessageListenerContainer listenerContainer = LisenerFactory.instantiation().getLisener(key);
 		if(listenerContainer == null){
 			log.error("not find queue:{}",key);
@@ -125,7 +127,7 @@ public class LisenerDeclare {
 	}
 	
 	public boolean lisenerShutdown(){
-		String key = getLisenerKey();
+		String key = getListenerKey();
 		SimpleMessageListenerContainer listenerContainer = LisenerFactory.instantiation().getLisener(key);
 		if(listenerContainer == null){
 			log.error("not find queue:{}",key);
@@ -134,8 +136,8 @@ public class LisenerDeclare {
 		listenerContainer.setTxSize(0);
 		return true;
 	}
-	
-	public String getLisenerKey(){
+
+	public String getListenerKey() {
 		String host = connectionFactory.getHost();
 		StringBuffer keySb = new StringBuffer();
 		keySb.append(host);

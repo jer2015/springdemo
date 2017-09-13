@@ -19,10 +19,10 @@ public class LisenerFactory {
 			return lisenerFactory;
 		}
 	}
-	
-	public LisenerStauts keepLisener(ConnectionFactory connectionFactory, SimpleMessageListenerContainer listenerContainer){
-		String key = getLisenerMapKey(connectionFactory,listenerContainer);
-		Object obj = lisenerMap.get(key);
+
+    public LisenerStauts keepListener(ConnectionFactory connectionFactory, SimpleMessageListenerContainer listenerContainer) {
+        String key = getListenerMapKey(connectionFactory, listenerContainer);
+        Object obj = lisenerMap.get(key);
 		if(obj != null){
 			return LisenerStauts.isExit;
 		}else{
@@ -30,20 +30,20 @@ public class LisenerFactory {
 			return LisenerStauts.success;
 		}
 	}
-	
-	public SimpleMessageListenerContainer getLisener(String key){
-		return lisenerMap.get(key);
+
+    public SimpleMessageListenerContainer getListener(String key) {
+        return lisenerMap.get(key);
 	}
-	
-	public Map<String, SimpleMessageListenerContainer> getAllLiseners(){
-		if(lisenerMap != null){
+
+    public Map<String, SimpleMessageListenerContainer> getAllListeners() {
+        if(lisenerMap != null){
 			return lisenerMap;
 		}
 		return null;
 	}
 
-	public String getLisenerMapKey(ConnectionFactory connectionFactory,SimpleMessageListenerContainer listenerContainer){
-		String host = connectionFactory.getHost();
+    public String getListenerMapKey(ConnectionFactory connectionFactory, SimpleMessageListenerContainer listenerContainer) {
+        String host = connectionFactory.getHost();
 		String[] queueNames = listenerContainer.getQueueNames();
 		StringBuffer keySb = new StringBuffer();
 		keySb.append(host);
@@ -54,8 +54,9 @@ public class LisenerFactory {
 		}
 		return keySb.toString();
 	}
-	public String getLisenerMapKey(ConnectionFactory connectionFactory,String queueName){
-		String host = connectionFactory.getHost();
+
+    public String getListenerMapKey(ConnectionFactory connectionFactory, String queueName) {
+        String host = connectionFactory.getHost();
 		StringBuffer keySb = new StringBuffer();
 		keySb.append(host);
 		keySb.append("[").append(queueName).append("]");
